@@ -40,7 +40,7 @@ def listcmd():
     secrets = load_secrets()
 
     for label, secret in secrets.items():
-        click.echo("{}: {}".format(label, totp(secret)))
+        click.echo("{} - {}".format(totp(secret), label))
 
     click.echo("")
     expire = 30 - (int(time.time()) % 30)
