@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='twofa',
-    version='0.1.0',
+    version='0.2.0',
     description='A simple command-line 2-factor authentication token manager',
     author='Nils Werner',
     long_description='',
@@ -13,6 +13,7 @@ setuptools.setup(
         'pyotp',
         'click',
         'pyyaml',
+        'cryptography',
     ],
     packages=setuptools.find_packages(),
     classifiers=[
