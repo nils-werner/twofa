@@ -104,6 +104,7 @@ def cli(ctx):
 
 @cli.command(name='list')
 def listcmd():
+    """ List all tokens. """
     store = Store()
     secrets = store.load_secrets()
 
@@ -119,6 +120,7 @@ def listcmd():
 @click.argument('label')
 @click.argument('secret')
 def addcmd(label, secret):
+    """ Adds secret to store. """
     store = Store()
     secrets = store.load_secrets()
 
@@ -142,6 +144,7 @@ def addcmd(label, secret):
 @click.argument('label')
 @click.argument('new_label')
 def renamecmd(label, new_label):
+    """ Renames secret in store. """
     store = Store()
     secrets = store.load_secrets()
 
@@ -158,6 +161,11 @@ def renamecmd(label, new_label):
 @click.argument('label')
 @click.option('--confirm/--no-confirm', default=False)
 def rmcmd(label, confirm):
+    """ Removes secret from store.
+
+    Must be confirmed using the --confirm flag.
+
+    """
     store = Store()
     secrets = store.load_secrets()
 
@@ -176,6 +184,7 @@ def rmcmd(label, confirm):
 @click.argument('label')
 @click.option('--invert/--no-invert', default=False)
 def qrcmd(label, invert):
+    """ Prints QR code for single secret. """
     store = Store()
     secrets = store.load_secrets()
     secret = secrets.get(label)
@@ -196,6 +205,7 @@ def qrcmd(label, invert):
 
 @cli.command(name='passwd')
 def passwdcmd():
+    """ Sets new password for store. Empty password disables encryption. """
     store = Store()
     secrets = store.load_secrets()
 
