@@ -18,6 +18,9 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         'Environment :: Console',
+        'Topic :: Security',
         'Topic :: Utilities',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
     ]
 )

@@ -27,21 +27,21 @@ def create_fernet(passwd, salt=None):
         iterations=500000,
         backend=default_backend()
     )
-    key = base64.urlsafe_b64encode(kdf.derive(passwd))
+    key = base64.urlsafe_b64encode(kdf.derive(passwd.encode()))
     return Fernet(key), salt
 
 
 def encrypt(data, passwd):
     f, salt = create_fernet(passwd)
 
-    return f.encrypt(yaml.dump(data)), base64.b64encode(salt)
+    return f.encrypt(yaml.dump(data).encode()).decode(), base64.b64encode(salt)
 
 
 def decrypt(data, passwd, salt):
     salt = base64.b64decode(salt)
     f, _ = create_fernet(passwd, salt)
 
-    return yaml.load(f.decrypt(data))
+    return yaml.load(f.decrypt(data.encode()))
 
 
 class Store(object):
