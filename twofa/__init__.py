@@ -52,17 +52,20 @@ class Store(object):
         try:
             with open(os.path.expanduser('~/.twofa.yaml'), 'r') as outfile:
                 data = yaml.load(outfile)
-            if data['encrypted']:
-                self.passwd = getpass.getpass("Enter password:")
-                self.encrypted = True
-                try:
-                    data['secrets'] = decrypt(
-                        data['secrets'], self.passwd, data['salt']
-                    )
-                except InvalidToken:
-                    raise click.ClickException("Invalid password")
+            try:
+                if data['encrypted']:
+                    self.passwd = getpass.getpass("Enter password:")
+                    self.encrypted = True
+                    try:
+                        data['secrets'] = decrypt(
+                            data['secrets'], self.passwd, data['salt']
+                        )
+                    except InvalidToken:
+                        raise click.ClickException("Invalid password")
 
-            return data['secrets']
+                return data['secrets']
+            except KeyError:
+                return data
         except (yaml.YAMLError, IOError):
             return {}
 
